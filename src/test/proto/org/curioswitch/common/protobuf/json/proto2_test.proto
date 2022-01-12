@@ -1,0 +1,22 @@
+syntax = "proto2";
+
+package curioswitch.protobufjson.test;
+option java_package = "org.curioswitch.common.protobuf.json.test";
+
+service HelloService {
+  rpc HelloProto2 (Proto2Request) returns (Proto2Response) {}
+}
+
+message Proto2Request {
+  required string name = 1;
+}
+
+enum Foo {
+  A = 1;
+  B = 2;
+}
+
+message Proto2Response {
+  required string message = 1;
+  optional Foo foo = 2;
+}

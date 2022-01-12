@@ -61,6 +61,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+import org.curioswitch.common.protobuf.json.test.Proto2Test;
 import org.junit.jupiter.api.Test;
 
 class MessageMarshallerTest {
@@ -1010,6 +1011,15 @@ class MessageMarshallerTest {
     MessageMarshaller marshaller =
         MessageMarshaller.builder().register(TestAllTypes.getDefaultInstance()).build();
     marshaller.mergeValue(parser, TestAllTypes.newBuilder());
+    assertThat(parser.isClosed()).isFalse();
+  }
+
+  @Test
+  void proto2Enum() throws Exception {
+    JsonParser parser = new ObjectMapper().getFactory().createParser("{\"message\": \"hello\", \"foo\": 1}");
+    MessageMarshaller marshaller =
+        MessageMarshaller.builder().register(Proto2Test.Proto2Response.getDefaultInstance()).build();
+    marshaller.mergeValue(parser, Proto2Test.Proto2Response.newBuilder());
     assertThat(parser.isClosed()).isFalse();
   }
 
